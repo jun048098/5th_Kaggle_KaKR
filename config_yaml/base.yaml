@@ -6,6 +6,9 @@ name: base
 # System
 seed:  43
 
+# model
+architecture: bert-base-uncased
+
 # Trainer
 lr: 0.00001
 n_eqochs: 3
