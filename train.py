@@ -1,9 +1,10 @@
 import os
 
 import torch
+from torch.utils.data import random_split
 from dataloader import CustomDataset
 from transformers import AutoModelForSequenceClassification, Trainer, TrainingArguments
-from utils import load_yaml, seed_everything, get_argumnets, compute_pearson_correlation
+from utils import load_yaml, seed_everything, get_argumnets
 
 device = torch.device('cuda' if torch.cuda.is_available() else "cpu")
 prj_dir  = os.path.dirname(os.path.abspath(__file__))
@@ -31,6 +32,13 @@ if __name__ == "__main__":
         model_name=config['architecture']
     )
 
+    dataset_size = len(train_text_dataset)
+    train_size = int(dataset_size * 0.9)
+    validation_size = dataset_size - train_size
+
+    train_dataset, validation_dataset = random_split(train_text_dataset, [train_size, validation_size])
+    print(f'train data: {len(train_dataset), }, val data: {len(validation_dataset)}')
+
     args = TrainingArguments(
         output_dir=os.path.join(prj_dir, "save_folder", config["name"]),
         evaluation_strategy="epoch",
@@ -52,9 +60,8 @@ if __name__ == "__main__":
     trainer = Trainer(
         model=model,
         args=args,
-        train_dataset=train_text_dataset,
-        eval_dataset=train_text_dataset,
-        compute_metrics=compute_pearson_correlation,
+        train_dataset=train_dataset,
+        eval_dataset=validation_dataset,
     )
 
     trainer.train()
