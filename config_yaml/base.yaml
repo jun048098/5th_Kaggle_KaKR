@@ -18,7 +18,8 @@ scheduler: liner
 
 # data
 data_folder:
-  train_data: .data/train.csv
+  # train_data: .data/train.csv
+  train_data: .data/test_sample.csv
   test_data: .data/test.csv
 
 #save path
