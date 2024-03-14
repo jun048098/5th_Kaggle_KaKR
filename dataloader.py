@@ -33,16 +33,23 @@ class CustomDataset(torch.utils.data.Dataset):
 
     def __getitem__(self, idx):
         if self.state == "test":
-            return {"input_ids": torch.tensor(self.inputs[idx])}
+            return {
+                    "input_ids": torch.tensor(self.inputs[idx]["input_ids"]),
+                    "attention_mask": torch.tensor(self.inputs[idx]["attention_mask"]),
+                    }
         else:
             if len(self.targets) == 0:
-                return torch.tensor(self.inputs[idx])
+                return {
+                    "input_ids": torch.tensor(self.inputs[idx]["input_ids"]),
+                    "attention_mask": torch.tensor(self.inputs[idx]["attention_mask"]),
+                    }
             else:
                 return {
-                    "input_ids": torch.tensor(self.inputs[idx]),
-                    "labels": torch.tensor(self.targets[idx]),
-                }
-    
+                    "input_ids": torch.tensor(self.inputs[idx]["input_ids"]),
+                    "attention_mask": torch.tensor(self.inputs[idx]["attention_mask"]),
+                    "label": torch.tensor(self.targets[idx]),
+                    },
+                    
 
     def __len__(self):
         return len(self.data)
@@ -90,4 +97,4 @@ class CustomDataset(torch.utils.data.Dataset):
             tokenize_data.append(output)
         
         return tokenize_data
-    
+        
