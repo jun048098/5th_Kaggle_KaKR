@@ -3,7 +3,7 @@ import os
 import torch
 from dataloader import CustomDataset
 from transformers import AutoModelForSequenceClassification, Trainer, TrainingArguments
-from utils import load_yaml, seed_everything, get_argumnets
+from utils import load_yaml, seed_everything, get_argumnets, compute_pearson_correlation
 
 device = torch.device('cuda' if torch.cuda.is_available() else "cpu")
 prj_dir  = os.path.dirname(os.path.abspath(__file__))
@@ -15,7 +15,12 @@ if __name__ == "__main__":
     config = load_yaml(path=config_path)
     seed_everything(config['seed'])
 
-    model = AutoModelForSequenceClassification.from_pretrained(config['architecture'])
+    print("cuda available:", torch.cuda.is_available())
+    model = AutoModelForSequenceClassification.from_pretrained(
+        config['architecture'],
+        num_labels=1,
+        ignore_mismatched_sizes=True
+        )
 
     train_text_dataset = CustomDataset(
         data_file=config['data_folder']['train_data'],
@@ -47,7 +52,9 @@ if __name__ == "__main__":
     trainer = Trainer(
         model=model,
         args=args,
-        train_dataset=train_text_dataset
+        train_dataset=train_text_dataset,
+        eval_dataset=train_text_dataset,
+        compute_metrics=compute_pearson_correlation,
     )
 
     trainer.train()
