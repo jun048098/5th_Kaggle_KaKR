@@ -91,5 +91,3 @@ class CustomDataset(torch.utils.data.Dataset):
         
         return tokenize_data
     
-
-    def preprocess()

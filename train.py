@@ -26,7 +26,30 @@ if __name__ == "__main__":
         model_name=config['architecture']
     )
 
+    args = TrainingArguments(
+        output_dir=os.path.join(prj_dir, "save_folder", config["name"]),
+        evaluation_strategy="epoch",
+        save_strategy="epoch",
+        learning_rate=config["lr"],
+        per_device_train_batch_size=config["batch_size"],
+        per_device_eval_batch_size=config["batch_size"],
+        num_train_epochs=config["n_epochs"],
+        weight_decay=config["weight_decay"],
+        load_best_model_at_end=True,
+        dataloader_num_workers=4,
+        logging_steps=100,
+        seed=config["seed"],
+        group_by_length=True,
+        lr_scheduler_type=config["scheduler"],
+    )
     
 
+    trainer = Trainer(
+        model=model,
+        args=args,
+        train_dataset=train_text_dataset
+    )
+
+    trainer.train()
     
 
