@@ -14,7 +14,7 @@ import wandb
 def seed_everything(seed: int=42):
     random.seed(seed) # random
     np.random.seed(seed) # numpy
-    os.environ["PYTHONHASHSEED"] = str(seed) 
+    os.environ["PYTHONHASHSEED"] = str(seed)
     torch.manual_seed(seed)
     torch.cuda.manual_seed(seed)
     cudnn.deterministic = True
