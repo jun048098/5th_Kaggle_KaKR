@@ -9,6 +9,7 @@ import transformers
 from scipy.stats import pearsonr
 import yaml
 
+import wandb
 
 def seed_everything(seed: int=42):
     random.seed(seed) # random
@@ -46,3 +47,9 @@ def compute_pearson_correlation(
     labels = pred.label_ids.flatten()
     perason_correlation = {"pearson_correlation": pearsonr(preds, labels)[0]}
     return perason_correlation
+
+def start_wandb(run_name):
+    config = load_yaml('wandb\\wandb.yaml')
+    wandb.init(entity=config['entity'],
+            project="5th kakr",
+            name=run_name)
