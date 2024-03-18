@@ -1,0 +1,25 @@
+##test.yaml
+
+#name
+name:
+  base: bert-base-uncased
+
+# System
+gpu_num: 0
+seed: 43
+
+# Model
+checkpoint:
+  base: base\checkpoint-120216
+  
+
+# Trainer
+batch_size: 4
+
+# data
+data_folder:
+  # train_data: .data/train.csv
+  train_data: data\train.csv
+  test_data: data\test.csv
+  submissions: data\sample_submissions.csv
+  
