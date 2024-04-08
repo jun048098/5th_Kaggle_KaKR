@@ -1,25 +1,24 @@
-## base.yaml
+## FacebookAI/roberta-base.yaml
 
 # name
-name: base
+name: roberta-base
 
 # System
 seed:  43
 
 # model
-architecture: bert-base-uncased
+architecture: FacebookAI/roberta-base
 
 # Trainer
 lr: 0.00001
-n_epochs: 2
-batch_size: 8
+n_epochs: 3
+batch_size: 16
 weight_decay: 0.5
 scheduler: linear
 
 # data
 data_folder:
-  train_data: data\train.csv
-  # train_data: data\test_sample.csv
+  train_data: data\down_229744.csv
   test_data: data\test.csv
 
 #save path

@@ -1,4 +1,5 @@
 import os
+from datetime import datetime
 
 import torch
 from torch.utils.data import random_split
@@ -19,9 +20,16 @@ if __name__ == "__main__":
     config = load_yaml(path=config_path)
     seed_everything(config['seed'])
 
-    start_wandb(run_name=config['name'])
+    now = datetime.now()
+    start_time = now.strftime('%y%m%d_%H_%M')
 
     print("cuda available:", torch.cuda.is_available())
+    print(f'model : {config['architecture']}')
+    print(f'train data : {config['data_folder']['train_data']}')
+
+
+    start_wandb(run_name=config['name'])
+
 
     model = AutoModelForSequenceClassification.from_pretrained(
         config['architecture'],
@@ -43,12 +51,12 @@ if __name__ == "__main__":
     validation_size = dataset_size - train_size
 
     train_dataset, validation_dataset = random_split(train_text_dataset, [train_size, validation_size])
-    print(f'train data: {len(train_dataset), }, val data: {len(validation_dataset)}')
+    print(f'train data: {len(train_dataset) }, val data: {len(validation_dataset)}')
 
     del[[train_text_dataset]]
     
     args = TrainingArguments(
-        output_dir=os.path.join(prj_dir, "save_folder", config["name"]),
+        output_dir=os.path.join(prj_dir, "save_folder", config["name"], start_time),
         evaluation_strategy="epoch",
         save_strategy="epoch",
         learning_rate=config["lr"],

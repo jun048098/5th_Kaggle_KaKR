@@ -1,7 +1,7 @@
-## base.yaml
+## base_down_data.yaml
 
 # name
-name: base
+name: base_down_data
 
 # System
 seed:  43
@@ -11,15 +11,14 @@ architecture: bert-base-uncased
 
 # Trainer
 lr: 0.00001
-n_epochs: 2
+n_epochs: 8
 batch_size: 8
 weight_decay: 0.5
 scheduler: linear
 
 # data
 data_folder:
-  train_data: data\train.csv
-  # train_data: data\test_sample.csv
+  train_data: data\down_229744.csv
   test_data: data\test.csv
 
 #save path

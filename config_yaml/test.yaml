@@ -3,6 +3,11 @@
 #name
 name:
   base: bert-base-uncased
+  xlm : xlm-roberta-base
+  base_down_data: bert-base-uncased
+  deberta: sileod/deberta-v3-base-tasksource-nli
+  deberta_down_v2: sileod/deberta-v3-base-tasksource-nli
+  roberta: FacebookAI/roberta-base
 
 # System
 gpu_num: 0
@@ -11,15 +16,15 @@ seed: 43
 # Model
 checkpoint:
   base: base\checkpoint-120216
-  
+  xlm: xlm\checkpoint-264476
+  base_down_data: base_down_data\checkpoint-56862
+  deberta: deberta\240322_00_22\checkpoint-113724
+  deberta_down_v2 : deberta_down_v2\240325_23_28\checkpoint-36724
+  roberta: roberta-base\240402_01_54\checkpoint-28432
 
-# Trainer
-batch_size: 4
 
 # data
 data_folder:
-  # train_data: .data/train.csv
-  train_data: data\train.csv
   test_data: data\test.csv
   submissions: data\sample_submissions.csv
   

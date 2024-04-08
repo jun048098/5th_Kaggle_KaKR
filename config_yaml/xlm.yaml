@@ -1,13 +1,13 @@
-## base.yaml
+## xlm-roberta-base
 
 # name
-name: base
+name: xlm
 
 # System
 seed:  43
 
 # model
-architecture: bert-base-uncased
+architecture: xlm-roberta-base
 
 # Trainer
 lr: 0.00001
@@ -19,7 +19,6 @@ scheduler: linear
 # data
 data_folder:
   train_data: data\train.csv
-  # train_data: data\test_sample.csv
   test_data: data\test.csv
 
 #save path
