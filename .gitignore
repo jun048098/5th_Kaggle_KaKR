@@ -2,4 +2,5 @@ data/
 model/
 __pycache__
 save_folder/
-wandb
+wandb/
+output/

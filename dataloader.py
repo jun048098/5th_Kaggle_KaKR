@@ -34,21 +34,21 @@ class CustomDataset(torch.utils.data.Dataset):
     def __getitem__(self, idx):
         if self.state == "test":
             return {
-                    "input_ids": torch.tensor(self.inputs[idx]["input_ids"]),
-                    "attention_mask": torch.tensor(self.inputs[idx]["attention_mask"]),
+                    "input_ids": torch.tensor(self.inputs["input_ids"][idx]),
+                    "attention_mask": torch.tensor(self.inputs["attention_mask"][idx]),
                     }
         else:
             if len(self.targets) == 0:
                 return {
-                    "input_ids": torch.tensor(self.inputs[idx]["input_ids"]),
-                    "attention_mask": torch.tensor(self.inputs[idx]["attention_mask"]),
+                    "input_ids": torch.tensor(self.inputs["input_ids"][idx]),
+                    "attention_mask": torch.tensor(self.inputs["attention_mask"][idx]),
                     }
             else:
                 return {
-                    "input_ids": torch.tensor(self.inputs[idx]["input_ids"]),
-                    "attention_mask": torch.tensor(self.inputs[idx]["attention_mask"]),
+                    "input_ids": torch.tensor(self.inputs["input_ids"][idx]),
+                    "attention_mask": torch.tensor(self.inputs["attention_mask"][idx]),
                     "label": torch.tensor(self.targets[idx]),
-                    },
+                    }
                     
 
     def __len__(self):
@@ -85,7 +85,11 @@ class CustomDataset(torch.utils.data.Dataset):
 
 
     def tokenize_function(self, data):
-        tokenize_data = []
+        tokenize_data = {
+            "input_ids": [],
+            "attention_mask": []
+        }
+
         for txt in tqdm(data, desc="Tokenizing", total=len(data)):
             output = self.tokenizer(
                 txt,
@@ -94,7 +98,8 @@ class CustomDataset(torch.utils.data.Dataset):
                 truncation=True,
                 max_length= self.max_length
             )
-            tokenize_data.append(output)
+            tokenize_data["input_ids"].append(output["input_ids"])
+            tokenize_data["attention_mask"].append(output["attention_mask"])
         
         return tokenize_data
-    
+        
