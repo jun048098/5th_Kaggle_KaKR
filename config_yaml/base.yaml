@@ -1,0 +1,25 @@
+## base.yaml
+
+# name
+name: base
+
+# System
+seed:  43
+
+# model
+architecture: bert-base-uncased
+
+# Trainer
+lr: 0.00001
+n_epochs: 2
+batch_size: 8
+weight_decay: 0.5
+scheduler: linear
+
+# data
+data_folder:
+  train_data: data\train.csv
+  # train_data: data\test_sample.csv
+  test_data: data\test.csv
+
+#save path
