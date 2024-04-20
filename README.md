@@ -9,7 +9,7 @@
 |**대회 목표**| **`악성 댓글 유해도 예측`** |
 | :---: | --- |
 |**구현 내용**| Hugging Face의 Pretrained 모델을 Trainer로 Fine-tuning|
-|**개발 환경**| `GPU` : 3070ti, `Kagge notebook` : P100|
+|**개발 환경**| `GPU` : 3070ti, `Kaggle notebook` : P100|
 
 ### How to Train
 ```
