@@ -2,7 +2,7 @@ import os
 
 import pandas as pd
 import torch
-import transformers
+from transformers import AutoModelForSequenceClassification
 from dataloader import CustomDataset
 from torch.utils.data import DataLoader
 from tqdm.auto import tqdm
@@ -18,7 +18,7 @@ if __name__ == "__main__":
     model_name = model_list[0]
     
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-    model = transformers.AutoModelForSequenceClassification.from_pretrained(
+    model = AutoModelForSequenceClassification.from_pretrained(
         os.path.join(prj_dir, "save_folder", config["checkpoint"][model_name])
     )
     
